@@ -42,6 +42,7 @@ public class JsonService {
                 JSONObject hitsDataObject = hitsArray.getJSONObject(i);
                 JSONObject recipeDataObject = hitsDataObject.getJSONObject("recipe");
                 String recipeName = recipeDataObject.getString("label");
+                String image = recipeDataObject.getString("image");
 
                 if (recipeName.equals(name)){
                     JSONArray healthLabelsData = recipeDataObject.getJSONArray("healthLabels");
@@ -77,7 +78,7 @@ public class JsonService {
                         mealType.add(mealTypeData.getString(j));
                     }
 
-                    recipeData = new Recipe(recipeName, healthLabels, cautions, ingredientLines, caloriesData, totalTimeData, cuisineType, mealType);
+                    recipeData = new Recipe(recipeName, ingredientLines, caloriesData, totalTimeData, cuisineType, mealType, image);
                     break;
                 }
             }

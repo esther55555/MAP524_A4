@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -84,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         adapter = new RecipesAdapter(this, recipes);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void imageListener(Bitmap image) {
+
     }
 
     @Override

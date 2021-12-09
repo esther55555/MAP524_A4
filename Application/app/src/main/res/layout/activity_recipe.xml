@@ -16,8 +16,17 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/recipeInfo"
+        app:layout_constraintBottom_toTopOf="@id/recipeImage"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/recipeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recipeName"
+        app:layout_constraintBottom_toTopOf="@id/recipeInfo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <LinearLayout
         android:id="@+id/recipeInfo"
@@ -27,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/recipeName">
+        app:layout_constraintTop_toBottomOf="@id/recipeImage">
 
         <LinearLayout
             android:layout_width="match_parent"

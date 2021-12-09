@@ -15,7 +15,11 @@
         android:theme="@style/Theme.Recipe_App">
         <activity
             android:name=".RecipeActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.recipe_app.MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

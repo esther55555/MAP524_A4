@@ -1,5 +1,7 @@
 package com.example.recipe_app;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -13,8 +15,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class NetworkingService {
-    private String recipeURL1 = "https://api.edamam.com/api/recipes/v2?type=public&q=";
-    private String recipeURL2 = "&app_id=3c909633&app_key=4fba14d24673b86dee4f890ced2fe370";
+    private final String recipeURL1 = "https://api.edamam.com/api/recipes/v2?type=public&q=";
+    private final String recipeURL2 = "&app_id=3c909633&app_key=4fba14d24673b86dee4f890ced2fe370";
 
     //provides multi-threading
     public static ExecutorService networkExecutorService = Executors.newFixedThreadPool(4);
@@ -24,6 +26,7 @@ public class NetworkingService {
 
     interface NetworkingListener{
         void dataListener(String jsonRecipeString);
+        void imageListener(Bitmap image);
     }
 
     NetworkingListener listener;
@@ -36,10 +39,10 @@ public class NetworkingService {
         networkExecutorService.execute(new Runnable() {
             @Override
             public void run() {
-                HttpURLConnection httpURLConnection = null;
+                HttpURLConnection httpURLConnection;
 
                 try{
-                    String jsonData = "";
+                    StringBuilder jsonData = new StringBuilder();
 
                     //complete URL for API
                     String completeURL = recipeURL1 + recipeChars + recipeURL2;
@@ -53,32 +56,17 @@ public class NetworkingService {
                     httpURLConnection.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                     httpURLConnection.setRequestProperty("authority", "api.edamam.com");
 
-//                    InputStream inputStream;
-//                    int responseStatusCode = httpURLConnection.getResponseCode();
-//                    if( responseStatusCode != HttpURLConnection.HTTP_OK ) {
-//                        inputStream = httpURLConnection.getErrorStream();
-//                        //Get more information about the problem
-//                    } else {
-//                        inputStream = httpURLConnection.getInputStream();
-//                    }
-
                     InputStream in = httpURLConnection.getInputStream();
                     InputStreamReader reader = new InputStreamReader(in);
                     BufferedReader br = new BufferedReader(reader);
 
                     //read the data
-//                    int inputStreamData = 0;
-//                    while ((inputStreamData = reader.read()) != -1){
-//                        char current = (char) inputStreamData;
-//
-//                        jsonData += current;
-//                    }
                     String theLine;
                     while ((theLine = br.readLine())!= null){
-                        jsonData += theLine;
+                        jsonData.append(theLine);
                     }
 
-                    final String finalData = jsonData;
+                    final String finalData = jsonData.toString();
 
                     //return data from background thread to main thread
                     networkHandler.post(new Runnable() {
@@ -89,6 +77,28 @@ public class NetworkingService {
                     });
                 }
                 catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void getImageData(String imageUrl){
+        networkExecutorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    URL urlObj = new URL(imageUrl);
+
+                    Bitmap bitmap = BitmapFactory.decodeStream((InputStream) urlObj.getContent());
+
+                    networkHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.imageListener(bitmap);
+                        }
+                    });
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

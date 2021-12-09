@@ -1,16 +1,17 @@
 package com.example.recipe_app;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 public class Recipe {
-    private String name = "";
-    private ArrayList<String> healthLabel;
-    private ArrayList<String> cautions;
+    private String name;
     private ArrayList<String> ingredients;
     private String calories;
     private String time;
     private ArrayList<String> cuisineType;
     private ArrayList<String> mealType;
+    private String image;
 
     public Recipe(){
 
@@ -20,27 +21,22 @@ public class Recipe {
         this.name = name;
     }
 
-    public Recipe(String name, ArrayList<String> healthLabel, ArrayList<String> cautions, ArrayList<String> ingredients, String calories, String time, ArrayList<String> cuisineType, ArrayList<String> mealType) {
+    public Recipe(String name, ArrayList<String> ingredients, String calories, String time, ArrayList<String> cuisineType, ArrayList<String> mealType, String image) {
         this.name = name;
-        this.healthLabel = healthLabel;
-        this.cautions = cautions;
         this.ingredients = ingredients;
         this.calories = calories;
         this.time = time;
         this.cuisineType = cuisineType;
         this.mealType = mealType;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public String getName() {
         return name;
-    }
-
-    public ArrayList<String> getHealthLabel() {
-        return healthLabel;
-    }
-
-    public ArrayList<String> getCautions() {
-        return cautions;
     }
 
     public ArrayList<String> getIngredients() {

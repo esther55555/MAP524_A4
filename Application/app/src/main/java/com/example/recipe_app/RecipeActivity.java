@@ -2,10 +2,12 @@ package com.example.recipe_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecipeActivity extends AppCompatActivity implements NetworkingService.NetworkingListener{
+public class RecipeActivity extends AppCompatActivity implements NetworkingService.NetworkingListener {
     NetworkingService networkingManager;
     JsonService jsonService;
     String recipeName;
@@ -15,6 +17,7 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
     TextView totalTimeText;
     TextView ingredientsText;
     TextView caloriesText;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,8 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
 
         recipeName = getIntent().getStringExtra("recipeName");
 
-        networkingManager = ((myApp)getApplication()).getNetworkingService();
-        jsonService = ((myApp)getApplication()).getJsonService();
+        networkingManager = ((myApp) getApplication()).getNetworkingService();
+        jsonService = ((myApp) getApplication()).getJsonService();
         networkingManager.listener = this;
 
         networkingManager.getRecipeData(recipeName);
@@ -35,7 +38,7 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         totalTimeText = findViewById(R.id.totalTime);
         ingredientsText = findViewById(R.id.ingredients);
         caloriesText = findViewById(R.id.calories);
-
+        imageView = findViewById(R.id.recipeImage);
         recipeNameText.setText(recipeName);
     }
 
@@ -44,20 +47,20 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         Recipe data = jsonService.getRecipeData(recipeName, jsonRecipeString);
 
         String info = "";
-        for (int i = 0; i< data.getCuisineType().size(); i++){
+        for (int i = 0; i < data.getCuisineType().size(); i++) {
             info += data.getCuisineType().get(i);
 
-            if (data.getCuisineType().size() != i + 1){
+            if (data.getCuisineType().size() != i + 1) {
                 info += ", ";
             }
         }
         cuisineTypeText.setText(info);
 
         info = "";
-        for (int i = 0; i< data.getMealType().size(); i++){
+        for (int i = 0; i < data.getMealType().size(); i++) {
             info += data.getMealType().get(i);
 
-            if (data.getMealType().size() != i + 1){
+            if (data.getMealType().size() != i + 1) {
                 info += ", ";
             }
         }
@@ -66,15 +69,22 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         totalTimeText.setText(data.getTime());
 
         info = "";
-        for (int i = 0; i< data.getIngredients().size(); i++){
+        for (int i = 0; i < data.getIngredients().size(); i++) {
             info += data.getIngredients().get(i);
 
-            if (data.getIngredients().size() != i + 1){
+            if (data.getIngredients().size() != i + 1) {
                 info += ", ";
             }
         }
         ingredientsText.setText(info);
 
         caloriesText.setText(data.getCalories());
+
+        networkingManager.getImageData(data.getImage());
+    }
+
+    @Override
+    public void imageListener(Bitmap image) {
+        imageView.setImageBitmap(image);
     }
 }
