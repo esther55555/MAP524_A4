@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
 
             @Override
             public boolean onQueryTextChange(String newText) {// after each char entered by user
-                if (newText.length() >= 5) {
+                if (newText.length() >= 1) {
                     // search for recipes
                     networkingManager.searchForRecipes(newText);
                 }

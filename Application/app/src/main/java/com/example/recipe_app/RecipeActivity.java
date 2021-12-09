@@ -46,37 +46,38 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
     public void dataListener(String jsonRecipeString) {
         Recipe data = jsonService.getRecipeData(recipeName, jsonRecipeString);
 
-        String info = "";
+        StringBuilder info = new StringBuilder();
         for (int i = 0; i < data.getCuisineType().size(); i++) {
-            info += data.getCuisineType().get(i);
+            info.append(data.getCuisineType().get(i));
 
             if (data.getCuisineType().size() != i + 1) {
-                info += ", ";
+                info.append(", ");
             }
         }
-        cuisineTypeText.setText(info);
+        cuisineTypeText.setText(info.toString());
 
-        info = "";
+        info = new StringBuilder();
         for (int i = 0; i < data.getMealType().size(); i++) {
-            info += data.getMealType().get(i);
+            info.append(data.getMealType().get(i));
 
             if (data.getMealType().size() != i + 1) {
-                info += ", ";
+                info.append(", ");
             }
         }
-        mealTypeText.setText(info);
+        mealTypeText.setText(info.toString());
 
         totalTimeText.setText(data.getTime());
 
-        info = "";
+        info = new StringBuilder();
+        String readLine = "";
         for (int i = 0; i < data.getIngredients().size(); i++) {
-            info += data.getIngredients().get(i);
+            readLine += data.getIngredients().get(i);
 
             if (data.getIngredients().size() != i + 1) {
-                info += ", ";
+                info.append("- ").append(readLine).append("\n");
             }
         }
-        ingredientsText.setText(info);
+        ingredientsText.setText(info.toString());
 
         caloriesText.setText(data.getCalories());
 
