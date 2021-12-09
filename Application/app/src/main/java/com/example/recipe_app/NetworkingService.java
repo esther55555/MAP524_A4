@@ -24,24 +24,25 @@ public class NetworkingService {
     //needed to return data from background thread to main thread
     public static Handler networkHandler = new Handler(Looper.getMainLooper());
 
-    interface NetworkingListener{
+    interface NetworkingListener {
         void dataListener(String jsonRecipeString);
+
         void imageListener(Bitmap image);
     }
 
     NetworkingListener listener;
 
-    public void getRecipeData(String recipeName){
+    public void getRecipeData(String recipeName) {
         searchForRecipes(recipeName);
     }
 
-    public void searchForRecipes(String recipeChars){
+    public void searchForRecipes(String recipeChars) {
         networkExecutorService.execute(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection httpURLConnection;
 
-                try{
+                try {
                     StringBuilder jsonData = new StringBuilder();
 
                     //complete URL for API
@@ -62,7 +63,7 @@ public class NetworkingService {
 
                     //read the data
                     String theLine;
-                    while ((theLine = br.readLine())!= null){
+                    while ((theLine = br.readLine()) != null) {
                         jsonData.append(theLine);
                     }
 
@@ -75,19 +76,18 @@ public class NetworkingService {
                             listener.dataListener(finalData);
                         }
                     });
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    public void getImageData(String imageUrl){
+    public void getImageData(String imageUrl) {
         networkExecutorService.execute(new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     URL urlObj = new URL(imageUrl);
 
                     Bitmap bitmap = BitmapFactory.decodeStream((InputStream) urlObj.getContent());

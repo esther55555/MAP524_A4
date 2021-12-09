@@ -7,15 +7,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class JsonService {
-    public ArrayList<Recipe> getRecipesFromJSON(String jsonRecipeString){
+    public ArrayList<Recipe> getRecipesFromJSON(String jsonRecipeString) {
         ArrayList<Recipe> recipeList = new ArrayList<>(0);
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(jsonRecipeString);
 
             JSONArray hitsArray = jsonObject.getJSONArray("hits");
 
-            for (int i = 0; i < hitsArray.length(); i++){
+            for (int i = 0; i < hitsArray.length(); i++) {
                 JSONObject hitsDataObject = hitsArray.getJSONObject(i);
                 JSONObject recipeDataObject = hitsDataObject.getJSONObject("recipe");
                 String recipeName = recipeDataObject.getString("label");
@@ -23,67 +23,72 @@ public class JsonService {
                 Recipe newRecipe = new Recipe(recipeName);
                 recipeList.add(newRecipe);
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        return  recipeList;
+        return recipeList;
     }
 
-    public Recipe getRecipeData(String name, String jsonRecipeString){
+    public Recipe getRecipeData(String name, String jsonRecipeString) {
         Recipe recipeData = new Recipe();
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(jsonRecipeString);
 
             JSONArray hitsArray = jsonObject.getJSONArray("hits");
 
-            for (int i = 0; i < hitsArray.length(); i++){
+            for (int i = 0; i < hitsArray.length(); i++) {
                 JSONObject hitsDataObject = hitsArray.getJSONObject(i);
                 JSONObject recipeDataObject = hitsDataObject.getJSONObject("recipe");
                 String recipeName = recipeDataObject.getString("label");
                 String image = recipeDataObject.getString("image");
 
-                if (recipeName.equals(name)){
-                    JSONArray healthLabelsData = recipeDataObject.getJSONArray("healthLabels");
-                    ArrayList<String> healthLabels = new ArrayList<>(0);
-                    for (int j = 0; j < healthLabelsData.length(); j++){
-                        healthLabels.add(healthLabelsData.getString(j));
-                    }
-
-                    JSONArray cautionsData = recipeDataObject.getJSONArray("cautions");
-                    ArrayList<String> cautions = new ArrayList<>(0);
-                    for (int j = 0; j < cautionsData.length(); j++){
-                        cautions.add(cautionsData.getString(j));
-                    }
-
+                if (recipeName.equals(name)) {
+                    //INGREDIENTS FIELD
+                    //converted into a String, so it can be saved into the database
                     JSONArray ingredientsLinesData = recipeDataObject.getJSONArray("ingredientLines");
-                    ArrayList<String> ingredientLines = new ArrayList<>(0);
-                    for (int j = 0; j < ingredientsLinesData.length(); j++){
-                        ingredientLines.add(ingredientsLinesData.getString(j));
+                    String ingredientString = "";
+                    for (int j = 0; j < ingredientsLinesData.length(); j++) {
+                        ingredientString += ingredientsLinesData.getString(j);
+                        if (ingredientsLinesData.length() != j + 1) {
+                            ingredientString += ", ";
+                        }
                     }
 
+                    //CUISINE TYPE FIELD
+                    //converted into a String, so it can be saved into the database
+                    JSONArray cuisineTypeData = recipeDataObject.getJSONArray("cuisineType");
+                    String cuisineString = "";
+                    for (int j = 0; j < cuisineTypeData.length(); j++) {
+                        cuisineString += cuisineTypeData.getString(j);
+                        if (cuisineTypeData.length() != j + 1) {
+                            cuisineString += ", ";
+                        }
+                    }
+
+                    //MEAL TYPE FIELD
+                    //converted into a String, so it can be saved into the database
+                    JSONArray mealTypeData = recipeDataObject.getJSONArray("mealType");
+                    String mealString = "";
+                    for (int j = 0; j < mealTypeData.length(); j++) {
+                        mealString += mealTypeData.getString(j);
+                        if (mealTypeData.length() != j + 1) {
+                            mealString += ", ";
+                        }
+                    }
+
+                    //CALORIES FIELD
                     String caloriesData = recipeDataObject.getString("calories");
+
+                    //TIME FIELD
                     String totalTimeData = recipeDataObject.getString("totalTime");
 
-                    JSONArray cuisineTypeData = recipeDataObject.getJSONArray("cuisineType");
-                    ArrayList<String> cuisineType = new ArrayList<>(0);
-                    for (int j = 0; j < cuisineTypeData.length(); j++){
-                        cuisineType.add(cuisineTypeData.getString(j));
-                    }
-
-                    JSONArray mealTypeData = recipeDataObject.getJSONArray("mealType");
-                    ArrayList<String> mealType = new ArrayList<>(0);
-                    for (int j = 0; j < mealTypeData.length(); j++){
-                        mealType.add(mealTypeData.getString(j));
-                    }
-
-                    recipeData = new Recipe(recipeName, ingredientLines, caloriesData, totalTimeData, cuisineType, mealType, image);
+                    //CREATE THE RECIPE
+                    recipeData = new Recipe(recipeName, ingredientString, caloriesData, totalTimeData, cuisineString, mealString, image);
                     break;
                 }
             }
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

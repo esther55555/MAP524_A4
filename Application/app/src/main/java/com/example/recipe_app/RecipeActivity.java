@@ -24,14 +24,7 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        recipeName = getIntent().getStringExtra("recipeName");
-
-        networkingManager = ((myApp) getApplication()).getNetworkingService();
-        jsonService = ((myApp) getApplication()).getJsonService();
-        networkingManager.listener = this;
-
-        networkingManager.getRecipeData(recipeName);
-
+        //get access to the Views
         recipeNameText = findViewById(R.id.recipeName);
         cuisineTypeText = findViewById(R.id.cuisineType);
         mealTypeText = findViewById(R.id.mealType);
@@ -40,50 +33,35 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         caloriesText = findViewById(R.id.calories);
         imageView = findViewById(R.id.recipeImage);
         recipeNameText.setText(recipeName);
+
+        //get the data sent from Main Activity
+        //gets the name of the recipe selected
+        recipeName = getIntent().getStringExtra("recipeName");
+
+        networkingManager = ((myApp) getApplication()).getNetworkingService();
+        jsonService = ((myApp) getApplication()).getJsonService();
+        networkingManager.listener = this;
+
+        //get the recipe info for the recipe selected
+        networkingManager.getRecipeData(recipeName);
     }
 
+    //listener for when recipe info is returned from background thread
     @Override
     public void dataListener(String jsonRecipeString) {
         Recipe data = jsonService.getRecipeData(recipeName, jsonRecipeString);
 
-        StringBuilder info = new StringBuilder();
-        for (int i = 0; i < data.getCuisineType().size(); i++) {
-            info.append(data.getCuisineType().get(i));
-
-            if (data.getCuisineType().size() != i + 1) {
-                info.append(", ");
-            }
-        }
-        cuisineTypeText.setText(info.toString());
-
-        info = new StringBuilder();
-        for (int i = 0; i < data.getMealType().size(); i++) {
-            info.append(data.getMealType().get(i));
-
-            if (data.getMealType().size() != i + 1) {
-                info.append(", ");
-            }
-        }
-        mealTypeText.setText(info.toString());
-
+        cuisineTypeText.setText(data.getCuisineType());
+        mealTypeText.setText(data.getMealType());
         totalTimeText.setText(data.getTime());
-
-        info = new StringBuilder();
-        String readLine = "";
-        for (int i = 0; i < data.getIngredients().size(); i++) {
-            readLine += data.getIngredients().get(i);
-
-            if (data.getIngredients().size() != i + 1) {
-                info.append("- ").append(readLine).append("\n");
-            }
-        }
-        ingredientsText.setText(info.toString());
-
+        ingredientsText.setText(data.getIngredients());
         caloriesText.setText(data.getCalories());
 
+        //get the image using background thread
         networkingManager.getImageData(data.getImage());
     }
 
+    //listener for when image is returned from background thread
     @Override
     public void imageListener(Bitmap image) {
         imageView.setImageBitmap(image);
