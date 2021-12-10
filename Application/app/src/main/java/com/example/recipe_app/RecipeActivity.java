@@ -1,11 +1,14 @@
 package com.example.recipe_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Database;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecipeActivity extends AppCompatActivity implements NetworkingService.NetworkingListener {
     NetworkingService networkingManager;
@@ -18,6 +21,8 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
     TextView ingredientsText;
     TextView caloriesText;
     ImageView imageView;
+
+    Recipe newRecipe = new Recipe();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +37,11 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         ingredientsText = findViewById(R.id.ingredients);
         caloriesText = findViewById(R.id.calories);
         imageView = findViewById(R.id.recipeImage);
-        recipeNameText.setText(recipeName);
 
         //get the data sent from Main Activity
         //gets the name of the recipe selected
         recipeName = getIntent().getStringExtra("recipeName");
+        recipeNameText.setText(recipeName);
 
         networkingManager = ((myApp) getApplication()).getNetworkingService();
         jsonService = ((myApp) getApplication()).getJsonService();
@@ -65,5 +70,12 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
     @Override
     public void imageListener(Bitmap image) {
         imageView.setImageBitmap(image);
+    }
+
+    //when saved button is clicked
+    public void saveRecipeToDatabase(View view) {
+        newRecipe.setNewRecipe(recipeNameText.getText().toString(), ingredientsText.getText().toString(), caloriesText.getText().toString(), totalTimeText.getText().toString(), cuisineTypeText.getText().toString(), mealTypeText.getText().toString());
+        DatabaseManager.insertRecipeIntoDatabase(newRecipe);
+        Toast.makeText(this, "Recipe saved to database", Toast.LENGTH_LONG).show();
     }
 }

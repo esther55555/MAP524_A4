@@ -1,13 +1,22 @@
 package com.example.recipe_app;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Recipe {
-    private String name;
-    private String ingredients;
-    private String calories;
-    private String time;
-    private String cuisineType;
-    private String mealType;
-    private String image;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public String name;
+    public String ingredients;
+    public String calories;
+    public String time;
+    public String cuisineType;
+    public String mealType;
+
+    @Ignore
+    public String image;
 
     public Recipe() {
 
@@ -53,5 +62,14 @@ public class Recipe {
 
     public String getMealType() {
         return mealType;
+    }
+
+    public void setNewRecipe(String name, String ingredients, String calories, String time, String cuisineType, String mealType){
+        this.name = name;
+        this.ingredients = ingredients;
+        this.calories = calories;
+        this.time = time;
+        this.cuisineType = cuisineType;
+        this.mealType = mealType;
     }
 }

@@ -11,10 +11,11 @@
         <TextView
             android:id="@+id/recipe"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="Recipe"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            android:textSize="20sp">
+            android:textSize="20sp"
+            android:backgroundTint="@color/Lavender">
         </TextView>
 
     </LinearLayout>

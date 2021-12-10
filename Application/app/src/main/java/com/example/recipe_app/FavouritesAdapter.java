@@ -10,36 +10,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.TasksViewHolder> {
-    interface recipeClickListener {
-        void recipeClicked(Recipe selectedRecipe);
+public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.TasksViewHolder> {
+    interface favouriteClickListener {
+        void favouriteRecipeClicked(Recipe selectedRecipe);
     }
 
     private Context mCtx;
-    public List<Recipe> recipeList;
-    recipeClickListener listener;
+    public List<Recipe> favouritesList;
+    favouriteClickListener listener;
 
-    public RecipesAdapter(Context mCtx, List<Recipe> recipeList) {
+    public FavouritesAdapter(Context mCtx, List<Recipe> recipeList) {
         this.mCtx = mCtx;
-        this.recipeList = recipeList;
-        listener = (recipeClickListener) mCtx;
+        this.favouritesList = recipeList;
+        listener = (favouriteClickListener) mCtx;
     }
 
     @Override
     public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_recipes, parent, false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_favourites, parent, false);
         return new TasksViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TasksViewHolder holder, int position) {
-        Recipe t = recipeList.get(position);
+        Recipe t = favouritesList.get(position);
         holder.recipeTextView.setText(t.getName());
     }
 
     @Override
     public int getItemCount() {
-        return recipeList.size();
+        return favouritesList.size();
     }
 
     class TasksViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -49,15 +49,15 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.TasksVie
         public TasksViewHolder(View itemView) {
             super(itemView);
 
-            recipeTextView = itemView.findViewById(R.id.recipe);
+            recipeTextView = itemView.findViewById(R.id.favouriteRecipe);
 
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Recipe city = recipeList.get(getAdapterPosition());
-            listener.recipeClicked(city);
+            Recipe city = favouritesList.get(getAdapterPosition());
+            listener.favouriteRecipeClicked(city);
         }
     }
 }

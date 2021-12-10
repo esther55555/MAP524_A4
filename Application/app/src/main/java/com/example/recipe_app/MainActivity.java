@@ -1,5 +1,6 @@
 package com.example.recipe_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,12 +22,15 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
     RecipesAdapter adapter;
     JsonService jsonService;
     RecyclerView recyclerView;
+    DatabaseManager databaseManager = new DatabaseManager();
+    FavouritesActivity favourite = new FavouritesActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        databaseManager.getDatabaseInstance(this);
         networkingManager = ((myApp)getApplication()).getNetworkingService();
         networkingManager.listener = this;
         jsonService = ((myApp) getApplication()).getJsonService();
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.option_menu, menu);
 
         MenuItem searchViewMenuItem = menu.findItem(R.id.search);
 
@@ -76,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
                 return false;
             }
         });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        Intent toFavouriteRecipesActivity = new Intent(this, FavouritesActivity.class);
+        startActivity(toFavouriteRecipesActivity);
+//        favourite.getFavouriteRecipes();
         return true;
     }
 
