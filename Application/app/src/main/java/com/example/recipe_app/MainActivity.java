@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
     JsonService jsonService;
     RecyclerView recyclerView;
     DatabaseManager databaseManager = new DatabaseManager();
-    FavouritesActivity favourite = new FavouritesActivity();
+    TextView mainTitle;
+    TextView mainDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         jsonService = ((myApp) getApplication()).getJsonService();
         recyclerView = findViewById(R.id.recipesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        mainTitle = findViewById(R.id.title);
+        mainDescription = findViewById(R.id.description);
 
         adapter = new RecipesAdapter(this, recipes);
         recyclerView.setAdapter(adapter);
@@ -89,13 +92,20 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         super.onOptionsItemSelected(item);
         Intent toFavouriteRecipesActivity = new Intent(this, FavouritesActivity.class);
         startActivity(toFavouriteRecipesActivity);
-//        favourite.getFavouriteRecipes();
         return true;
     }
 
     @Override
     public void dataListener(String jsonRecipeString) {
         recipes = jsonService.getRecipesFromJSON(jsonRecipeString);
+        if (recipes.size() > 0){
+            mainTitle.setText("");
+            mainDescription.setText("");
+        }
+        else{
+            mainTitle.setText(R.string.main_title);
+            mainDescription.setText(R.string.main_description);
+        }
         adapter = new RecipesAdapter(this, recipes);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

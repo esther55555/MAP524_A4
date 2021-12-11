@@ -62,4 +62,13 @@ public class DatabaseManager {
             }
         });
     }
+
+    public void deleteRecipeFromDatabase(Recipe recipe){
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.getRecipeDAO().deleteRecipe(recipe);
+            }
+        });
+    }
 }

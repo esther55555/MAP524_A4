@@ -127,7 +127,6 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="2b2b2b" />
                                       <entry key="outputName" value="delete" />
                                     </map>
                                   </option>

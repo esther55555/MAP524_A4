@@ -1,10 +1,14 @@
 package com.example.recipe_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Database;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,5 +81,30 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
         newRecipe.setNewRecipe(recipeNameText.getText().toString(), ingredientsText.getText().toString(), caloriesText.getText().toString(), totalTimeText.getText().toString(), cuisineTypeText.getText().toString(), mealTypeText.getText().toString());
         DatabaseManager.insertRecipeIntoDatabase(newRecipe);
         Toast.makeText(this, "Recipe saved to database", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.report_menu_item:{
+                Intent toFavouriteRecipesActivity = new Intent(this, FavouritesActivity.class);
+                startActivity(toFavouriteRecipesActivity);
+                break;
+            }
+            default:{
+                Intent toMainActivity = new Intent(this, MainActivity.class);
+                startActivity(toMainActivity);
+                break;
+            }
+        }
+        return true;
     }
 }

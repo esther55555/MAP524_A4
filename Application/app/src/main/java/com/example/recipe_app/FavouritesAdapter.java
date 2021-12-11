@@ -27,7 +27,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Ta
 
     @Override
     public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_favourites, parent, false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_recipes, parent, false);
         return new TasksViewHolder(view);
     }
 
@@ -49,7 +49,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Ta
         public TasksViewHolder(View itemView) {
             super(itemView);
 
-            recipeTextView = itemView.findViewById(R.id.favouriteRecipe);
+            recipeTextView = itemView.findViewById(R.id.recipe);
 
             itemView.setOnClickListener(this);
         }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Recipe_App</string>
+    <string name="main_description">Search a recipe or view all your saved favourites here</string>
+    <string name="main_title">Welcome to my Recipe App</string>
 </resources>
