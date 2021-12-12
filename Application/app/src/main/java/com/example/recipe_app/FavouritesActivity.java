@@ -40,10 +40,6 @@ public class FavouritesActivity extends AppCompatActivity implements FavouritesA
         databaseManager.getAllRecipesSaved();
     }
 
-    public void getFavouriteRecipes() {
-        databaseManager.getAllRecipesSaved();
-    }
-
     @Override
     public void faveListener(List<Recipe> savedRecipes) {
         favouriteRecipes = new ArrayList<Recipe>(savedRecipes);
@@ -69,6 +65,7 @@ public class FavouritesActivity extends AppCompatActivity implements FavouritesA
         builder.show();
     }
 
+    //swipe right on favourite recipe to delete
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {

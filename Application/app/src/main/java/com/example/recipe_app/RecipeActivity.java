@@ -80,7 +80,7 @@ public class RecipeActivity extends AppCompatActivity implements NetworkingServi
     public void saveRecipeToDatabase(View view) {
         newRecipe.setNewRecipe(recipeNameText.getText().toString(), ingredientsText.getText().toString(), caloriesText.getText().toString(), totalTimeText.getText().toString(), cuisineTypeText.getText().toString(), mealTypeText.getText().toString());
         DatabaseManager.insertRecipeIntoDatabase(newRecipe);
-        Toast.makeText(this, "Recipe saved to database", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.recipe_recipe_saved_to_database), Toast.LENGTH_LONG).show();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

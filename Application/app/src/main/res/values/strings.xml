@@ -2,4 +2,18 @@
     <string name="app_name">Recipe_App</string>
     <string name="main_description">Search a recipe or view all your saved favourites here</string>
     <string name="main_title">Welcome to my Recipe App</string>
+    <string name = "main_search_for_recipes">Search for recipes</string>
+    <string name="main_search_for_new_recipes">Search for new recipes..</string>
+    <string name = "recipe_recipe_saved_to_database">Recipe saved to database</string>
+    <string name="activity_favourite_recipes_favourites_text">Favourites</string>
+    <string name="activity_favourite_recipes_explanation">Select a recipe to view details. Swipe right to delete from favourites.</string>
+    <string name="activity_recipe_recipeName">Recipe Name</string>
+    <string name="activity_recipe_cuisine_type">Cuisine Type:</string>
+    <string name="activity_recipe_mealType">Meal Type:</string>
+    <string name="activity_recipe_calories">Calories:</string>
+    <string name="activity_recipe_totalTime">Total Time:</string>
+    <string name="activity_recipe_ingredients">Ingredients:</string>
+    <string name="activity_recipe_saveButton">Add to Favourites</string>
+    <string name="option_menu_report_menu_item">Favourite Recipes</string>
+    <string name="search_menu_search">Search for recipes by food</string>
 </resources>

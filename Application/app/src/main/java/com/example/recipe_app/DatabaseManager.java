@@ -6,7 +6,6 @@ import android.os.Looper;
 
 import androidx.room.Room;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,11 +14,12 @@ public class DatabaseManager {
     static RecipeDatabase database;
 
     public static final ExecutorService executorService = Executors.newFixedThreadPool(4);
-    static Handler handler =new Handler(Looper.getMainLooper());
+    static Handler handler = new Handler(Looper.getMainLooper());
 
-    interface DatabaseActionListener{
-        void faveListener (List<Recipe> savedRecipes);
+    interface DatabaseActionListener {
+        void faveListener(List<Recipe> savedRecipes);
     }
+
     DatabaseActionListener listener;
 
     //build the database -- should only be called once
@@ -38,7 +38,7 @@ public class DatabaseManager {
         return database;
     }
 
-    public void getAllRecipesSaved(){
+    public void getAllRecipesSaved() {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +54,7 @@ public class DatabaseManager {
         });
     }
 
-    public static void insertRecipeIntoDatabase(Recipe newRecipe){
+    public static void insertRecipeIntoDatabase(Recipe newRecipe) {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -63,7 +63,7 @@ public class DatabaseManager {
         });
     }
 
-    public void deleteRecipeFromDatabase(Recipe recipe){
+    public void deleteRecipeFromDatabase(Recipe recipe) {
         executorService.execute(new Runnable() {
             @Override
             public void run() {

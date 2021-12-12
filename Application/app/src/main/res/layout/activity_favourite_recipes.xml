@@ -10,29 +10,29 @@
         android:id="@+id/favouritesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
         android:gravity="center"
-        android:text="Favourites"
+        android:text="@string/activity_favourite_recipes_favourites_text"
         android:textColor="@color/black"
-        android:textSize="35sp"
+        android:textSize="@dimen/size_35"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="20dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/explanation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select a recipe to view details. Swipe right to delete from favourites."
+        android:text="@string/activity_favourite_recipes_explanation"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="@dimen/size_15"
         app:layout_constraintTop_toBottomOf="@id/favouritesTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favouritesList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="@dimen/size_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/explanation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

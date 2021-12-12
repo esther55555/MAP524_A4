@@ -56,8 +56,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Ta
 
         @Override
         public void onClick(View view) {
-            Recipe city = favouritesList.get(getAdapterPosition());
-            listener.favouriteRecipeClicked(city);
+            Recipe recipe = favouritesList.get(getAdapterPosition());
+            listener.favouriteRecipeClicked(recipe);
         }
     }
 }

@@ -10,11 +10,11 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="@dimen/size_50"
         android:gravity="center_horizontal"
         android:text="@string/main_title"
         android:textColor="@color/black"
-        android:textSize="50sp"
+        android:textSize="@dimen/size_50"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,11 +22,11 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="@dimen/size_20"
         android:gravity="center_horizontal"
         android:text="@string/main_description"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="@dimen/size_25"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <androidx.recyclerview.widget.RecyclerView

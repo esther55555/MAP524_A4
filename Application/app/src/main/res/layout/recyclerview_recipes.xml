@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            android:textSize="23sp" />
+            android:textSize="@dimen/size_23" />
 
         <View
             android:layout_width="fill_parent"

@@ -56,8 +56,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.TasksVie
 
         @Override
         public void onClick(View view) {
-            Recipe city = recipeList.get(getAdapterPosition());
-            listener.recipeClicked(city);
+            Recipe recipe = recipeList.get(getAdapterPosition());
+            listener.recipeClicked(recipe);
         }
     }
 }

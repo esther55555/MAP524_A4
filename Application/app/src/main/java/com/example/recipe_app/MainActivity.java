@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements RecipesAdapter.recipeClickListener, NetworkingService.NetworkingListener{
+public class MainActivity extends AppCompatActivity implements RecipesAdapter.recipeClickListener, NetworkingService.NetworkingListener {
     NetworkingService networkingManager;
     ArrayList<Recipe> recipes = new ArrayList<Recipe>(0);
     RecipesAdapter adapter;
@@ -26,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
     DatabaseManager databaseManager = new DatabaseManager();
     TextView mainTitle;
     TextView mainDescription;
+    MenuItem searchViewMenuItem;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         setContentView(R.layout.activity_main);
 
         databaseManager.getDatabaseInstance(this);
-        networkingManager = ((myApp)getApplication()).getNetworkingService();
+        networkingManager = ((myApp) getApplication()).getNetworkingService();
         networkingManager.listener = this;
         jsonService = ((myApp) getApplication()).getJsonService();
         recyclerView = findViewById(R.id.recipesList);
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
 
         adapter = new RecipesAdapter(this, recipes);
         recyclerView.setAdapter(adapter);
-        setTitle("Search for new recipes..");
+        setTitle(getString(R.string.main_search_for_new_recipes));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,21 +53,20 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
         inflater.inflate(R.menu.search_menu, menu);
         inflater.inflate(R.menu.option_menu, menu);
 
-        MenuItem searchViewMenuItem = menu.findItem(R.id.search);
+        searchViewMenuItem = menu.findItem(R.id.search);
 
-        SearchView searchView = (SearchView) searchViewMenuItem.getActionView();
+        searchView = (SearchView) searchViewMenuItem.getActionView();
         String searchFor = searchView.getQuery().toString();
         if (!searchFor.isEmpty()) {
             searchView.setIconified(false);
             searchView.setQuery(searchFor, false);
         }
 
-        searchView.setQueryHint("Search for recipes");
+        searchView.setQueryHint(getString(R.string.main_search_for_recipes));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {// when the user clicks enter
-                Log.d("query", query);
-
+                networkingManager.searchForRecipes(query);
                 return true;
             }
 
@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
                 if (newText.length() >= 1) {
                     // search for recipes
                     networkingManager.searchForRecipes(newText);
-                }
-                else {
+                } else {
                     recipes = new ArrayList<>(0);
                     adapter.recipeList = recipes;
                     adapter.notifyDataSetChanged();
@@ -98,11 +97,10 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.re
     @Override
     public void dataListener(String jsonRecipeString) {
         recipes = jsonService.getRecipesFromJSON(jsonRecipeString);
-        if (recipes.size() > 0){
+        if (recipes.size() > 0) {
             mainTitle.setText("");
             mainDescription.setText("");
-        }
-        else{
+        } else {
             mainTitle.setText(R.string.main_title);
             mainDescription.setText(R.string.main_description);
         }

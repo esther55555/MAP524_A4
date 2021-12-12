@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".RecipeActivity">
 
         <TextView
@@ -16,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="20sp"
+            android:layout_marginTop="@dimen/size_20"
+            android:layout_marginBottom="@dimen/size_20"
             android:gravity="center"
-            android:text="Recipe Name"
+            android:text="@string/activity_recipe_recipeName"
             android:textColor="@color/black"
-            android:textSize="30sp"
+            android:textSize="@dimen/size_30"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/recipeImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +38,8 @@
             android:id="@+id/recipeInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="@dimen/size_8"
+            android:layout_marginRight="@dimen/size_8"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/saveButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +54,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cuisine Type: "
+                    android:text="@string/activity_recipe_cuisine_type"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/size_25"
                     android:textStyle="bold" />
 
                 <TextView
@@ -65,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/size_23" />
             </LinearLayout>
 
             <LinearLayout
@@ -76,9 +75,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Meal Type: "
+                    android:text="@string/activity_recipe_mealType"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/size_25"
                     android:textStyle="bold" />
 
                 <TextView
@@ -86,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/size_23" />
             </LinearLayout>
 
             <LinearLayout
@@ -97,9 +96,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calories: "
+                    android:text="@string/activity_recipe_calories"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/size_25"
                     android:textStyle="bold" />
 
                 <TextView
@@ -107,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/size_23" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,9 +117,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Time: "
+                    android:text="@string/activity_recipe_totalTime"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/size_25"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/size_23" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,9 +138,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ingredients: "
+                    android:text="@string/activity_recipe_ingredients"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/size_25"
                     android:textStyle="bold" />
 
                 <TextView
@@ -149,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/size_23" />
             </LinearLayout>
         </LinearLayout>
 
@@ -158,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="saveRecipeToDatabase"
-            android:text="Add to Favourites"
+            android:text="@string/activity_recipe_saveButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
